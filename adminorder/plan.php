@@ -21,7 +21,7 @@
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark"><a class="navbar-brand"
                 href="menuorder.php">APOTEK ALFA 99</a><button class="btn btn-link btn-sm order-1 order-lg-0"
                 id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
-            < !-- Navbar-->
+            
                 <ul class="navbar-nav ml-auto ml-md-0">
                     <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" id="userDropdown" href="#"
                             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
@@ -91,7 +91,8 @@
                                                 $arr_november = array();
                                                 $arr_desember = array();
                                             ?>
-                                            <?php $servername="localhost";
+                                            <?php 
+                                                $servername="localhost";
                                                 $username="root";
                                                 $password="";
                                                 $dbname="stockbarang";
@@ -103,16 +104,15 @@
                                                 if ($conn->connect_error) {
                                                     die("Connection failed: ". $conn->connect_error);
                                                 }
-
-                                                // echo "Connected successfully";
-
-                                                $data="SELECT * FROM ujicoba";
+                                                                                           
+                                                $data="SELECT * FROM pesan LEFT JOIN stock ON stock.idbarang = pesan.idbarang";
+                                                // $data="SELECT * FROM pesan ";
 
                                                 $result=$conn->query($data);
 
                                                 if($result->num_rows > 0) {
                                                     while ($row=$result->fetch_assoc()) {
-                                                        // echo "id : ".$row["id"]. "<br>";
+                                                        // var_dump($row['frekuensi']);
                                                         $frekuensi = $row['frekuensi'];
                                                         $incremental = 12/$frekuensi;
 
@@ -120,83 +120,181 @@
                                                             $round = round($i);
 
                                                             if($round == 1){
-                                                                $arr_januari[] = $row['nama_produk'];
+                                                                $arr_januari[] = [
+                                                                    'nama_produk' => $row['namabarang'],
+                                                                    'jml_pesan' => $row['jumlahpesan'],
+                                                                    'biaya_pesan' => $row['biayapesan'],
+                                                                    'total' => $row['jumlahpesan']*$row['biayapesan'],
+                                                                ];
                                                             }elseif($round == 2){
-                                                                $arr_februari[] = $row['nama_produk'];
+                                                                $arr_februari[] = [
+                                                                    'nama_produk' => $row['namabarang'],
+                                                                    'jml_pesan' => $row['jumlahpesan'],
+                                                                    'biaya_pesan' => $row['biayapesan'],
+                                                                    'total' => $row['jumlahpesan']*$row['biayapesan'],
+                                                                ];
                                                             }elseif($round == 3){
                                                                 $arr_maret[] = [
-                                                                    'nama_produk' => $row['nama_produk'],
-                                                                    'jml_pesan' => $row['jml_pesan'],
-                                                                    'biaya_pesan' => $row['biaya_pesan'],
-                                                                    'total' => $row['jml_pesan']*$row['biaya_pesan'],
+                                                                    'nama_produk' => $row['namabarang'],
+                                                                    'jml_pesan' => $row['jumlahpesan'],
+                                                                    'biaya_pesan' => $row['biayapesan'],
+                                                                    'total' => $row['jumlahpesan']*$row['biayapesan'],
+                                                                ];
+                                                            }elseif($round == 4){
+                                                                $arr_april[] = [
+                                                                    'nama_produk' => $row['namabarang'],
+                                                                    'jml_pesan' => $row['jumlahpesan'],
+                                                                    'biaya_pesan' => $row['biayapesan'],
+                                                                    'total' => $row['jumlahpesan']*$row['biayapesan'],
                                                                 ];
                                                             
-                                                            }elseif($round == 4){
-                                                                $arr_april[] = $row['nama_produk'];
-                                                            
                                                             }elseif($round == 5){
-                                                                $arr_mei[] = $row['nama_produk'];
+                                                                $arr_mei[] = [
+                                                                    'nama_produk' => $row['namabarang'],
+                                                                    'jml_pesan' => $row['jumlahpesan'],
+                                                                    'biaya_pesan' => $row['biayapesan'],
+                                                                    'total' => $row['jumlahpesan']*$row['biayapesan'],
+                                                                ];
                                                             
                                                             }elseif($round == 6){
-                                                                $arr_juni[] = $row['nama_produk'];
+                                                                $arr_juni[] = [
+                                                                    'nama_produk' => $row['namabarang'],
+                                                                    'jml_pesan' => $row['jumlahpesan'],
+                                                                    'biaya_pesan' => $row['biayapesan'],
+                                                                    'total' => $row['jumlahpesan']*$row['biayapesan'],
+                                                                ];
                                                             
                                                             }elseif($round == 7){
-                                                                $arr_juli[] = $row['nama_produk'];
+                                                                $arr_juli[] = [
+                                                                    'nama_produk' => $row['namabarang'],
+                                                                    'jml_pesan' => $row['jumlahpesan'],
+                                                                    'biaya_pesan' => $row['biayapesan'],
+                                                                    'total' => $row['jumlahpesan']*$row['biayapesan'],
+                                                                ];
                                                             
                                                             }elseif($round == 8){
-                                                                $arr_agustus[] = $row['nama_produk'];
+                                                                $arr_agustus[] = [
+                                                                    'nama_produk' => $row['namabarang'],
+                                                                    'jml_pesan' => $row['jumlahpesan'],
+                                                                    'biaya_pesan' => $row['biayapesan'],
+                                                                    'total' => $row['jumlahpesan']*$row['biayapesan'],
+                                                                ];
                                                             
                                                             }elseif($round == 9){
-                                                                $arr_september[] = $row['nama_produk'];
+                                                                $arr_september[] = [
+                                                                    'nama_produk' => $row['namabarang'],
+                                                                    'jml_pesan' => $row['jumlahpesan'],
+                                                                    'biaya_pesan' => $row['biayapesan'],
+                                                                    'total' => $row['jumlahpesan']*$row['biayapesan'],
+                                                                ];
                                                             
                                                             }elseif($round == 10){
-                                                                $arr_oktober[] = $row['nama_produk'];
+                                                                $arr_oktober[] = [
+                                                                    'nama_produk' => $row['namabarang'],
+                                                                    'jml_pesan' => $row['jumlahpesan'],
+                                                                    'biaya_pesan' => $row['biayapesan'],
+                                                                    'total' => $row['jumlahpesan']*$row['biayapesan'],
+                                                                ];
                                                             
                                                             }elseif($round == 11){
-                                                                $arr_november[] = $row['nama_produk'];
+                                                                $arr_november[] = [
+                                                                    'nama_produk' => $row['namabarang'],
+                                                                    'jml_pesan' => $row['jumlahpesan'],
+                                                                    'biaya_pesan' => $row['biayapesan'],
+                                                                    'total' => $row['jumlahpesan']*$row['biayapesan'],
+                                                                ];
                                                             
                                                             }elseif($round == 12){
-                                                                $arr_desember[] = $row['nama_produk'];
+                                                                $arr_desember[] = [
+                                                                    'nama_produk' => $row['namabarang'],
+                                                                    'jml_pesan' => $row['jumlahpesan'],
+                                                                    'biaya_pesan' => $row['biayapesan'],
+                                                                    'total' => $row['jumlahpesan']*$row['biayapesan'],
+                                                                ];
                                                             }
                                                         }                                                        
                                                     }
                                                 }
 
                                             ?>
+                                            
                                             <tr>
                                                 <td>1</td>
                                                 <td>Januari</td>
                                                 <td class="text-center">
+                                                    
                                                     <?php foreach($arr_januari as $arr){
-                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
-                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr['nama_produk'].'</span><br>';
                                                     }
                                                     ?>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_januari as $arr){
+                                                        echo '<span class="badge bg-warning text-white mt-2">'.$arr['jml_pesan'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_januari as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['biaya_pesan']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_januari as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['total']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php $grandtotal=0; foreach($arr_januari as $arr){ 
+                                                        $grandtotal = $grandtotal + $arr['total'];
+                                                    }
+                                                    echo '<h6 class="text-success">Rp '.number_format($grandtotal).'</h6>';
+                                                    ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>2</td>
-                                                <td>Februari</td>
+                                                <td>februari</td>
                                                 <td class="text-center">
+                                                    
                                                     <?php foreach($arr_februari as $arr){
-                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
-                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr['nama_produk'].'</span><br>';
                                                     }
                                                     ?>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_februari as $arr){
+                                                        echo '<span class="badge bg-warning text-white mt-2">'.$arr['jml_pesan'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_februari as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['biaya_pesan']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_februari as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['total']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php $grandtotal=0; foreach($arr_februari as $arr){ 
+                                                        $grandtotal = $grandtotal + $arr['total'];
+                                                    }
+                                                    echo '<h6 class="text-success">Rp '.number_format($grandtotal).'</h6>';
+                                                    ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>3</td>
-                                                <td>Maret</td>
+                                                <td>maret</td>
                                                 <td class="text-center">
+                                                    
                                                     <?php foreach($arr_maret as $arr){
                                                         echo '<span class="badge bg-primary text-white mt-2">'.$arr['nama_produk'].'</span><br>';
                                                     }
@@ -230,138 +328,327 @@
                                             </tr>
                                             <tr>
                                                 <td>4</td>
-                                                <td>April</td>
+                                                <td>april</td>
                                                 <td class="text-center">
+                                                    
                                                     <?php foreach($arr_april as $arr){
-                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
-                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr['nama_produk'].'</span><br>';
                                                     }
                                                     ?>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_april as $arr){
+                                                        echo '<span class="badge bg-warning text-white mt-2">'.$arr['jml_pesan'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_april as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['biaya_pesan']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_april as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['total']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php $grandtotal=0; foreach($arr_april as $arr){ 
+                                                        $grandtotal = $grandtotal + $arr['total'];
+                                                    }
+                                                    echo '<h6 class="text-success">Rp '.number_format($grandtotal).'</h6>';
+                                                    ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>5</td>
-                                                <td>Mei</td>
+                                                <td>mei</td>
                                                 <td class="text-center">
+                                                    
                                                     <?php foreach($arr_mei as $arr){
-                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
-                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr['nama_produk'].'</span><br>';
                                                     }
                                                     ?>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_mei as $arr){
+                                                        echo '<span class="badge bg-warning text-white mt-2">'.$arr['jml_pesan'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_mei as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['biaya_pesan']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_mei as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['total']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php $grandtotal=0; foreach($arr_mei as $arr){ 
+                                                        $grandtotal = $grandtotal + $arr['total'];
+                                                    }
+                                                    echo '<h6 class="text-success">Rp '.number_format($grandtotal).'</h6>';
+                                                    ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>6</td>
-                                                <td>Juni</td>
+                                                <td>juni</td>
                                                 <td class="text-center">
+                                                    
                                                     <?php foreach($arr_juni as $arr){
-                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
-                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr['nama_produk'].'</span><br>';
                                                     }
                                                     ?>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_juni as $arr){
+                                                        echo '<span class="badge bg-warning text-white mt-2">'.$arr['jml_pesan'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_juni as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['biaya_pesan']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_juni as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['total']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php $grandtotal=0; foreach($arr_juni as $arr){ 
+                                                        $grandtotal = $grandtotal + $arr['total'];
+                                                    }
+                                                    echo '<h6 class="text-success">Rp '.number_format($grandtotal).'</h6>';
+                                                    ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>7</td>
-                                                <td>Juli</td>
+                                                <td>juli</td>
                                                 <td class="text-center">
+                                                    
                                                     <?php foreach($arr_juli as $arr){
-                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
-                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr['nama_produk'].'</span><br>';
                                                     }
                                                     ?>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_juli as $arr){
+                                                        echo '<span class="badge bg-warning text-white mt-2">'.$arr['jml_pesan'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_juli as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['biaya_pesan']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_juli as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['total']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php $grandtotal=0; foreach($arr_juli as $arr){ 
+                                                        $grandtotal = $grandtotal + $arr['total'];
+                                                    }
+                                                    echo '<h6 class="text-success">Rp '.number_format($grandtotal).'</h6>';
+                                                    ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>8</td>
-                                                <td>Agustus</td>
+                                                <td>agustus</td>
                                                 <td class="text-center">
+                                                    
                                                     <?php foreach($arr_agustus as $arr){
-                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
-                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr['nama_produk'].'</span><br>';
                                                     }
                                                     ?>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_agustus as $arr){
+                                                        echo '<span class="badge bg-warning text-white mt-2">'.$arr['jml_pesan'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_agustus as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['biaya_pesan']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_agustus as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['total']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php $grandtotal=0; foreach($arr_agustus as $arr){ 
+                                                        $grandtotal = $grandtotal + $arr['total'];
+                                                    }
+                                                    echo '<h6 class="text-success">Rp '.number_format($grandtotal).'</h6>';
+                                                    ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>9</td>
-                                                <td>September</td>
+                                                <td>september</td>
+                                                <td class="text-center">
+                                                    
+                                                    <?php foreach($arr_september as $arr){
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr['nama_produk'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td class="text-center">
                                                     <?php foreach($arr_september as $arr){
-                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
-                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                        echo '<span class="badge bg-warning text-white mt-2">'.$arr['jml_pesan'].'</span><br>';
                                                     }
                                                     ?>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>10</td>
-                                                <td>Oktober</td>
                                                 <td class="text-center">
-                                                    <?php foreach($arr_oktober as $arr){
-                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
-                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                    <?php foreach($arr_september as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['biaya_pesan']).'</span><br>';
                                                     }
                                                     ?>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_september as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['total']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php $grandtotal=0; foreach($arr_september as $arr){ 
+                                                        $grandtotal = $grandtotal + $arr['total'];
+                                                    }
+                                                    echo '<h6 class="text-success">Rp '.number_format($grandtotal).'</h6>';
+                                                    ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>11</td>
-                                                <td>November</td>
+                                                <td>Oktober</td>
                                                 <td class="text-center">
-                                                    <?php foreach($arr_november as $arr){
-                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
-                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                    
+                                                    <?php foreach($arr_oktober as $arr){
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr['nama_produk'].'</span><br>';
                                                     }
                                                     ?>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_oktober as $arr){
+                                                        echo '<span class="badge bg-warning text-white mt-2">'.$arr['jml_pesan'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_oktober as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['biaya_pesan']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_oktober as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['total']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php $grandtotal=0; foreach($arr_oktober as $arr){ 
+                                                        $grandtotal = $grandtotal + $arr['total'];
+                                                    }
+                                                    echo '<h6 class="text-success">Rp '.number_format($grandtotal).'</h6>';
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>11</td>
+                                                <td>november</td>
+                                                <td class="text-center">
+                                                    
+                                                    <?php foreach($arr_november as $arr){
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr['nama_produk'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_november as $arr){
+                                                        echo '<span class="badge bg-warning text-white mt-2">'.$arr['jml_pesan'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_november as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['biaya_pesan']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_november as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['total']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php $grandtotal=0; foreach($arr_november as $arr){ 
+                                                        $grandtotal = $grandtotal + $arr['total'];
+                                                    }
+                                                    echo '<h6 class="text-success">Rp '.number_format($grandtotal).'</h6>';
+                                                    ?>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>12</td>
-                                                <td>Desember</td>
+                                                <td>desember</td>
                                                 <td class="text-center">
+                                                    
                                                     <?php foreach($arr_desember as $arr){
-                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
-                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr['nama_produk'].'</span><br>';
                                                     }
                                                     ?>
                                                 </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_desember as $arr){
+                                                        echo '<span class="badge bg-warning text-white mt-2">'.$arr['jml_pesan'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_desember as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['biaya_pesan']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_desember as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['total']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php $grandtotal=0; foreach($arr_desember as $arr){ 
+                                                        $grandtotal = $grandtotal + $arr['total'];
+                                                    }
+                                                    echo '<h6 class="text-success">Rp '.number_format($grandtotal).'</h6>';
+                                                    ?>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>

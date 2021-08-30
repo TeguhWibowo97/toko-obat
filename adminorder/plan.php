@@ -78,18 +78,18 @@
                                         </thead>
                                         <tbody>
                                             <?php 
-                                                $arr_bln_januari = array();
-                                                $arr_bln_februari = array();
-                                                $arr_bln_maret = array();
-                                                $arr_bln_april = array();
-                                                $arr_bln_mei = array();
-                                                $arr_bln_juni = array();
-                                                $arr_bln_juli = array();
-                                                $arr_bln_agustus = array();
-                                                $arr_bln_september = array();
-                                                $arr_bln_oktober = array();
-                                                $arr_bln_november = array();
-                                                $arr_bln_desember = array();
+                                                $arr_januari = array();
+                                                $arr_februari = array();
+                                                $arr_maret = array();
+                                                $arr_april = array();
+                                                $arr_mei = array();
+                                                $arr_juni = array();
+                                                $arr_juli = array();
+                                                $arr_agustus = array();
+                                                $arr_september = array();
+                                                $arr_oktober = array();
+                                                $arr_november = array();
+                                                $arr_desember = array();
                                             ?>
                                             <?php $servername="localhost";
                                                 $username="root";
@@ -113,9 +113,52 @@
                                                 if($result->num_rows > 0) {
                                                     while ($row=$result->fetch_assoc()) {
                                                         // echo "id : ".$row["id"]. "<br>";
-                                                        
-                                                        $arr_bln_januari[] = 12/$row['frekuensi'];
-                                                        
+                                                        $frekuensi = $row['frekuensi'];
+                                                        $incremental = 12/$frekuensi;
+
+                                                        for ($i=$incremental; $i <=12; $i+=$incremental) {
+                                                            $round = round($i);
+
+                                                            if($round == 1){
+                                                                $arr_januari[] = $row['nama_produk'];
+                                                            }elseif($round == 2){
+                                                                $arr_februari[] = $row['nama_produk'];
+                                                            }elseif($round == 3){
+                                                                $arr_maret[] = [
+                                                                    'nama_produk' => $row['nama_produk'],
+                                                                    'jml_pesan' => $row['jml_pesan'],
+                                                                    'biaya_pesan' => $row['biaya_pesan'],
+                                                                    'total' => $row['jml_pesan']*$row['biaya_pesan'],
+                                                                ];
+                                                            
+                                                            }elseif($round == 4){
+                                                                $arr_april[] = $row['nama_produk'];
+                                                            
+                                                            }elseif($round == 5){
+                                                                $arr_mei[] = $row['nama_produk'];
+                                                            
+                                                            }elseif($round == 6){
+                                                                $arr_juni[] = $row['nama_produk'];
+                                                            
+                                                            }elseif($round == 7){
+                                                                $arr_juli[] = $row['nama_produk'];
+                                                            
+                                                            }elseif($round == 8){
+                                                                $arr_agustus[] = $row['nama_produk'];
+                                                            
+                                                            }elseif($round == 9){
+                                                                $arr_september[] = $row['nama_produk'];
+                                                            
+                                                            }elseif($round == 10){
+                                                                $arr_oktober[] = $row['nama_produk'];
+                                                            
+                                                            }elseif($round == 11){
+                                                                $arr_november[] = $row['nama_produk'];
+                                                            
+                                                            }elseif($round == 12){
+                                                                $arr_desember[] = $row['nama_produk'];
+                                                            }
+                                                        }                                                        
                                                     }
                                                 }
 
@@ -123,8 +166,12 @@
                                             <tr>
                                                 <td>1</td>
                                                 <td>Januari</td>
-                                                <td class="text-center"><span class="badge bg-primary text-white">yes</span>
-                                                <?php echo json_encode($arr_bln_januari);?>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_januari as $arr){
+                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                    }
+                                                    ?>
                                                 </td>
                                                 <td></td>
                                                 <td></td>
@@ -134,8 +181,13 @@
                                             <tr>
                                                 <td>2</td>
                                                 <td>Februari</td>
-                                                <td class="text-center"><span
-                                                        class="badge bg-primary text-white">yes</span></td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_februari as $arr){
+                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -144,8 +196,168 @@
                                             <tr>
                                                 <td>3</td>
                                                 <td>Maret</td>
-                                                <td class="text-center"><span
-                                                        class="badge bg-primary text-white">yes</span></td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_maret as $arr){
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr['nama_produk'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_maret as $arr){
+                                                        echo '<span class="badge bg-warning text-white mt-2">'.$arr['jml_pesan'].'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_maret as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['biaya_pesan']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_maret as $arr){ 
+                                                        echo '<span class="badge bg-success text-white mt-2">Rp '.number_format($arr['total']).'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td>
+                                                    <?php $grandtotal=0; foreach($arr_maret as $arr){ 
+                                                        $grandtotal = $grandtotal + $arr['total'];
+                                                    }
+                                                    echo '<h6 class="text-success">Rp '.number_format($grandtotal).'</h6>';
+                                                    ?>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>4</td>
+                                                <td>April</td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_april as $arr){
+                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>5</td>
+                                                <td>Mei</td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_mei as $arr){
+                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>6</td>
+                                                <td>Juni</td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_juni as $arr){
+                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>7</td>
+                                                <td>Juli</td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_juli as $arr){
+                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>8</td>
+                                                <td>Agustus</td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_agustus as $arr){
+                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>9</td>
+                                                <td>September</td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_september as $arr){
+                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>10</td>
+                                                <td>Oktober</td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_oktober as $arr){
+                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>11</td>
+                                                <td>November</td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_november as $arr){
+                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>12</td>
+                                                <td>Desember</td>
+                                                <td class="text-center">
+                                                    <?php foreach($arr_desember as $arr){
+                                                        // return <span class="badge bg-primary text-white mt-2">.$arr.</span>;
+                                                        echo '<span class="badge bg-primary text-white mt-2">'.$arr.'</span><br>';
+                                                    }
+                                                    ?>
+                                                </td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -167,32 +379,7 @@
                                 <a>SEMARANG</a></div>
                         </div>
                     </div>
-                </footer><?php $servername="localhost";
-$username="root";
-$password="";
-$dbname="stockbarang";
-
-// Create connection
-$conn=new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: ". $conn->connect_error);
-}
-
-// echo "Connected successfully";
-
-$data="SELECT * FROM pesan";
-
-$result=$conn->query($data);
-
-if($result->num_rows > 0) {
-    while ($row=$result->fetch_assoc()) {
-        echo "idbarang : ".$row["idbarang"]. "<br>";
-    }
-}
-
-?>
+                </footer>
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
